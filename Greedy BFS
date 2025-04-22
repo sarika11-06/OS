@@ -1,34 +1,31 @@
-# Greedy Best-First Search
-import heapq
+import queue
 
-def greedy_bfs(graph, start, goal, h):
-    open_list = []
-    heapq.heappush(open_list, (h[start], start))
-    came_from = {}
+# Breadth-First Search (BFS) using queue.Queue
+def bfs(graph, start):
+    visited = set()  # To track visited nodes
+    q = queue.Queue()  # Create a FIFO queue using queue.Queue
+    q.put(start)  # Enqueue the start node
+    visited.add(start)
 
-    while open_list:
-        current = heapq.heappop(open_list)[1]
+    while not q.empty():
+        node = q.get()  # Dequeue the front element
+        print(node, end=' ')  # Process the current node (for this case, just print it)
 
-        if current == goal:
-            path = []
-            while current in came_from:
-                path.append(current)
-                current = came_from[current]
-            path.append(start)
-            return path[::-1]
-        
-        for neighbor in graph[current]:
-            if neighbor not in came_from:
-                came_from[neighbor] = current
-                heapq.heappush(open_list, (h.get(neighbor, 0), neighbor))
+        # Add all unvisited neighbors to the queue
+        for neighbor in graph[node]:
+            if neighbor not in visited:
+                visited.add(neighbor)
+                q.put(neighbor)  # Enqueue unvisited neighbors
 
-# Example graph and heuristic
+# Example graph as an adjacency list
 graph = {
     'A': ['B', 'C'],
-    'B': ['D'],
-    'C': ['D'],
-    'D': []
+    'B': ['A', 'D', 'E'],
+    'C': ['A', 'F'],
+    'D': ['B'],
+    'E': ['B', 'F'],
+    'F': ['C', 'E']
 }
-h = {'A': 4, 'B': 2, 'C': 1, 'D': 0}
 
-print(greedy_bfs(graph, 'A', 'D', h))
+# Start BFS from node 'A'
+bfs(graph, 'A')
