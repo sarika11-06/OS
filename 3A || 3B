@@ -1,0 +1,16 @@
+3A :- Program using clauses
+
+likes(ram, mango).
+girl(seema).
+red(rose).
+pink(candy).
+owns(john, gold).
+
+
+
+3B :- program for temperature conversion
+
+c_to_f(C, F) :-
+    F is C * 9 / 5 + 32.
+freezing(F) :-
+    F =< 32.
