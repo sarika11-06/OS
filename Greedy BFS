@@ -1,0 +1,34 @@
+# Greedy Best-First Search
+import heapq
+
+def greedy_bfs(graph, start, goal, h):
+    open_list = []
+    heapq.heappush(open_list, (h[start], start))
+    came_from = {}
+
+    while open_list:
+        current = heapq.heappop(open_list)[1]
+
+        if current == goal:
+            path = []
+            while current in came_from:
+                path.append(current)
+                current = came_from[current]
+            path.append(start)
+            return path[::-1]
+        
+        for neighbor in graph[current]:
+            if neighbor not in came_from:
+                came_from[neighbor] = current
+                heapq.heappush(open_list, (h.get(neighbor, 0), neighbor))
+
+# Example graph and heuristic
+graph = {
+    'A': ['B', 'C'],
+    'B': ['D'],
+    'C': ['D'],
+    'D': []
+}
+h = {'A': 4, 'B': 2, 'C': 1, 'D': 0}
+
+print(greedy_bfs(graph, 'A', 'D', h))
