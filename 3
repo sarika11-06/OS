@@ -1,0 +1,46 @@
+import numpy as np
+import matplotlib.pyplot as plt
+def binaryStep(x):
+  return np.heaviside(x, 1)
+x = np.linspace(-10, 10)
+plt.plot(x, binaryStep(x))
+plt.axis('tight')
+plt.title('Binary Step Function')
+plt.show()
+def linear(x):
+  return x
+x = np.linspace(-10, 10)
+plt.plot(x, linear(x))
+plt.title('Activation Function: Linear')
+plt.show()
+def sigmoid(x):
+  return 1/(1+np.exp(-x))
+x = np.linspace(-10, 10)
+plt.plot(x, sigmoid(x))
+plt.title('Activation Function: Sigmoid')
+plt.show()
+def tanh(x):
+  return np.tanh(x)
+x = np.linspace(-10, 10)
+plt.plot(x, tanh(x))
+plt.title('Activation Function: Tanh')
+plt.show()
+def softmax(x):
+  return np.exp(x)
+x = np.linspace(-10,10)
+plt.plot(x, softmax(x))
+plt.axis('tight')
+plt.title('activation function: softmax')
+def RELU(x):
+  x1 = []
+  for i in x:
+    if i<0:
+      x1.append(0)
+    else:
+      x1.append(i)
+  return x1
+x = np.linspace(-10,10)
+plt.plot(x, RELU(x))
+plt.axis("tight")
+plt.title('activation function: RELU')
+plt.show()
