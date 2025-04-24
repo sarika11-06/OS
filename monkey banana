@@ -1,8 +1,0 @@
-in_room(bananas).
-in_room(chair).
-in_room(monkey).
-clever(monkey).
-can_climb(monkey, chair).
-tall(chair).
-can_move(mokey, chair, bananas).
-can_reach(monkey, banana).
