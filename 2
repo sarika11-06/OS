@@ -1,0 +1,67 @@
+import numpy as np
+np.random.seed(seed = 0)
+I = np.random.choice([0, 1], 3)
+W = np.random.choice([-1, 1], 3)
+print(f'Input vector : {I} and Weights: {W}')
+dot = I @ W
+print(f"Dot product: {dot}")
+def linear_threshold(dot: int, T: float):
+  if dot >= T:
+    return 1
+  else:
+    return 0
+T = 1
+activation = linear_threshold(dot, T)
+print(f'Activation: {activation}')
+T = 3
+activation = linear_threshold(dot, T)
+print(f'Activation: {activation}')
+input_table = np.array([
+    [0,0],
+    [0,1],
+    [1,0],
+    [1,1]
+])
+print(f'Input table: \n{input_table}')
+# And Gate
+weights = np.array([1, 1])
+print(f'Weights: {weights}')
+dot_products = input_table @ weights
+print(f'Dot products: {dot_products}')
+T = 2
+for i in range(0, 4):
+  activation = linear_threshold(dot_products[i], T)
+  print(f'Activation: {activation}')
+# Nor Gate
+weights = np.array([-1, -1])
+print(f'Weights: {weights}')
+dot_products = input_table @ weights
+print(f'Dot products: {dot_products}')
+T = 0
+for i in range(0, 4):
+  activation = linear_threshold(dot_products[i], T)
+  print(f'Activation: {activation}')
+# Or Gate
+weights = np.array([3, 3])
+print(f'Weights: {weights}')
+dot_products = input_table @ weights
+print(f'Dot products: {dot_products}')
+T = 3
+for i in range(0, 4):
+  activation = linear_threshold(dot_products[i], T)
+  print(f'Activation: {activation}')
+# Not Gate
+input_table = np.array([
+    [0],
+    [1]
+])
+print(f'Input table: \n{input_table}')
+weights = np.array([-1])
+print(f'Weights: {weights}')
+bias=0.5
+dot_products = input_table @ weights + bias;
+print(f'Dot products: {dot_products}')
+T = 0
+for i in range(0, 2):
+  activation = linear_threshold(dot_products[i], T)
+  print(f'Activation: {activation}')
