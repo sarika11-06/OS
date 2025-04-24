@@ -1,0 +1,159 @@
+#EXPT 11 
+import tensorflow as tf 
+import numpy as np 
+from tensorflow.keras.models import Sequential 
+from tensorflow.keras.layers import Flatten 
+from tensorflow.keras.layers import Dense 
+from tensorflow.keras.layers import Activation 
+import matplotlib.pyplot as plt 
+
+(x_train, y_train), (x_test, y_test) = tf.keras.datasets.mnist.load_data() 
+
+
+#cast records into float 
+x_train = x_train.astype('float32') 
+x_test = x_test.astype('float32') 
+
+
+#normalize image pixel values by dividing 
+# by 255 
+gray_scale = 255 
+x_train / gray_scale 
+x_test / gray_scale 
+print("Feature matrix:", x_train.shape) 
+print("Target matrix:", x_test.shape) 
+print("Feature matrix:", y_train.shape) 
+print("Target matrix:", y_test.shape)
+fig, ax = plt.subplots (10, 10) 
+k= 0 
+for i in range(10): 
+  for j in range(10): 
+    ax[i][j].imshow(x_train [k].reshape (28, 28), 
+    aspect='auto') 
+    k += 1 
+plt.show()
+model = Sequential ([ 
+# reshape 28 row 28 column data to 28*28 rows 
+  Flatten (input_shape=(28, 28)), 
+  Dense (256, activation='sigmoid'), 
+  Dense (128, activation='sigmoid'), 
+  Dense(10, activation='sigmoid'), 
+]) 
+
+
+model.compile(optimizer='adam', 
+loss='sparse_categorical_crossentropy', 
+metrics=['accuracy'])
+
+
+model.summary() 
+model.fit(x_train, y_train, epochs=10, 
+  batch_size=2000, 
+  validation_split = 0.2) 
+results = model.evaluate(x_test, y_test, verbose = 0) 
+print('test loss, test acc:', results[0])
+
+
+
+
+
+
+#Exp 12- CNN
+import tensorflow as tf 
+from tensorflow.keras import datasets, layers, models 
+import matplotlib.pyplot as plt 
+
+
+# Load CIFAR-10 dataset 
+(train_images, train_labels), (test_images, test_labels) = datasets.cifar10.load_data() 
+# Normalize pixel values to be between 0 and 1 
+train_images, test_images = train_images / 255.0, test_images / 255.0 
+# Define class names for CIFAR-10 dataset 
+class_names = ['airplane', 'automobile', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck'] 
+
+
+# Display some sample images from the dataset 
+plt.figure(figsize=(15, 15)) 
+for i in range(25): 
+  plt.subplot(5, 5, i + 1) 
+  plt.xticks([]) 
+  plt.yticks([]) 
+  plt.grid(False) 
+  plt.imshow(train_images[i]) 
+  plt.xlabel(class_names[train_labels[i][0]]) 
+plt.show()
+# Create CNN Model 
+model = models. Sequential([ 
+  layers.Conv2D (32, (3, 3), activation='relu', input_shape=(32, 32, 3)), 
+  layers.MaxPooling2D((2, 2)), 
+  layers.Conv2D (64, (3, 3), activation='relu'), 
+  layers.MaxPooling2D ((2, 2)), 
+  layers.Conv2D (64, (3, 3), activation='relu'), 
+  # Flattening and Fully Connected LayerFs 
+  layers.Flatten(), 
+  layers. Dense (64, activation='relu'), 
+  layers. Dense (10) 
+]) 
+# Display Model Summary 
+model.summary()
+# Compile the Model 
+model.compile(optimizer='adam', 
+  loss=tf.keras.losses. SparseCategoricalCrossentropy(from_logits=True), 
+  metrics=['accuracy']) 
+
+#Train the Model 
+history = model.fit (train_images, train_labels, epochs=3, # change this to 10 
+  validation_data=(test_images, test_labels)) 
+# Plot Training Accuracy 
+plt.plot(history.history['accuracy'], label='Training Accuracy') 
+plt.plot(history.history['val_accuracy'], label='Validation Accuracy') 
+plt.xlabel('Epoch') 
+plt.ylabel('Accuracy') 
+plt.ylim([0.5, 1]) 
+plt.legend(loc='lower right') 
+plt.show()
+
+
+
+#EXPT 13: RNN 
+import tensorflow as tf 
+from tensorflow.keras.models import Sequential 
+from tensorflow.keras.layers import Dense, Dropout, LSTM 
+mnist = tf.keras.datasets.mnist 
+
+
+(x_train, y_train), (x_test, y_test) = mnist.load_data() 
+x_train = x_train/255.0 
+x_test = x_test/255.6 
+print(x_train.shape) 
+print(x_train[0].shape) 
+
+
+
+model = Sequential() 
+model.add(LSTM(128, input_shape=(x_train.shape[1:]), activation = 'relu', return_sequences = True)) 
+model.add(Dropout(0.2)) 
+
+
+model.add(LSTM(128, activation = 'relu')) 
+model.add(Dropout(0.1)) 
+
+
+model.add(Dense(32, activation = 'relu')) 
+model.add(Dropout (0.2)) 
+
+                 
+model.add(Dense(10, activation = "softmax")) 
+
+
+
+opt = tf.keras.optimizers.Adam(learning_rate= 0.001, decay=1e-6) 
+model.compile(loss="sparse_categorical_crossentropy", optimizer = opt, metrics=['accuracy']) 
+
+
+
+model.fit(x_train, y_train, epochs=3, validation_data=(x_test, y_test)) 
+
+score = model.evaluate(x_test, y_test, verbose=0) 
+print("loss", score[0]) 
+print("accuracy", score[1]) 
