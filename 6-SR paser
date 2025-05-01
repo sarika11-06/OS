@@ -1,0 +1,57 @@
+
+#include <iostream>
+#include <stack>
+#include <vector>
+using namespace std;
+void printStack(stack<string> st) {
+    vector<string> temp;
+    while (!st.empty()) { temp.push_back(st.top()); st.pop(); }
+    for (int i = temp.size() - 1; i >= 0; i--) cout << temp[i] << " ";
+    cout << endl;
+}
+bool reduce(stack<string> &st) {
+    if (st.size() >= 3) {
+        string a = st.top(); st.pop();
+        string b = st.top(); st.pop();
+        string c = st.top(); st.pop();
+  if ((a == "E" && (b == "+" || b == "*") && c == "E") || (a == ")" && b == "E" && c == "(")) {
+            cout << "Reducing " << (a == ")" ? "(E)" : "E " + b + " E") << " to E\n";
+            st.push("E"); printStack(st);
+            return true;
+        }
+        st.push(c); st.push(b); st.push(a);
+    }  if (!st.empty() && st.top() == "id") {
+        cout << "Reducing id to E\n";
+        st.pop(); st.push("E"); printStack(st);
+        return true;
+    }
+    return false;
+}
+bool shiftReduceParser(vector<string> input) {
+    stack<string> st;
+    st.push("$");  // Initialize stack with "$"
+    int i = 0;
+    bool reduced;
+  cout << "Parsing Process:\n";
+    while (i < input.size() || reduced) {
+        if (!reduced && i < input.size()) {
+            if (input[i] == "$") break; // Don't shift "$"
+            cout << "Shifting: " << input[i] << endl;
+            st.push(input[i++]); printStack(st);
+        }
+        reduced = reduce(st);
+    }
+    // Final check: Stack should contain exactly ["$", "E"]
+    if (st.size() == 2 && st.top() == "E") {
+        st.pop();
+        if (st.top() == "$") return true;
+    }
+    return false;
+}
+int main() {
+    vector<string> input = {"id", "+", "id", "*", "(", "id", "+", "id", ")", "$"};  // "$" marks end of input
+    cout << "Input Expression: "; for (string token : input) cout << token << " ";
+    cout << "\n-------------------------\n";
+    if (shiftReduceParser(input)) cout << "\nString is successfully parsed.\n";
+    else cout << "\nParsing failed.\n";
+    return 0; }
