@@ -1,0 +1,37 @@
+marks <- c(97,78,57,64,87)
+#calculate 70th percentile marks
+result <- quantile (marks, 0.70)
+print (result)
+
+marks <- c(97,78,57,64,87)
+result <- quantile (marks, c(0.7,0.5,0.8))
+print (result)
+
+
+dataframel <- data.frame (Name = c("Juan", "Kay", "Jay", "Ray", "Aley"), Age = c(22,15,19,30,23), ID = c(101,102,103,104,105))
+result <- quantile (dataframel$Age, c(0.55,0.27))
+print (result)
+
+
+y = c(445,530,510,570,530,545,545,505,535,450,500,520,460,430,520,520,430,535,535,475,545,420,495,485,570,480,495,470,490)
+var (y)
+sd (y)
+#this var function cannot give 'population variance'which has n not n-1
+mean ((y-mean(y))^2)
+
+
+#RANGE
+data = c (12,45, "ΝΑ", "ΝΑ", 67,23,45,78, "ΝΑ", 89) 
+# or
+# data = c (12,45, ΝΑ, ΝΑ, 67,23,45,78, ΝΑ, 89)
+#display
+print (data)
+
+#find range
+print (max(data,na.rm=TRUE)-min(data,na.rm=TRUE))  
+# 77
+#INTER -QUARTILE RANGE
+
+x <- c(0:10)
+IQR(x)
+
