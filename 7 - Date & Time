@@ -1,0 +1,56 @@
+#COERCE A 'DATE' OBJECT FROM A CHARACTER
+x <- as.Date("19-01-01")
+x
+
+x <- Sys.time()
+x
+
+
+#GET CURRENT DATE AND TIME
+date()
+Sys.Date()
+Sys.time()
+
+# #GET CURRENT DATE USING R LUBRIDATE PACKAGE
+install.packages('lubridate')
+
+library (lubridate)
+now ()
+
+
+#EXTRACTION YEARS, MONTHS, AND DAYS FROM MULTIPLE DATE VALUES IN R
+
+library (lubridate)
+dates <- c("2025-08-22","2012-04-19","2017-03-05")
+year (dates)
+month (dates)
+mday (dates)
+
+
+#MANIPULATE DATA VALUES IN R
+my_date <- as.Date("2022-05-27")
+my_date
+class (my_date)
+format (my_date, "%y-%h-%d")
+format (my_date, "%d-%m-%y")
+format (my_date, "%d-%m-%Y")
+format (my_date, "%Y-%h-%d")
+format (my_date, "%Y-%m-%-%d-%H-%M-%S")
+format (my_date, "%d-%m-%y")
+
+
+#USING UPDATE () TO UPDATE DATE VALUES IN R
+date <- ymd("2025-08-22")
+update (date,year=2004,month=10,mday=12)
+
+update (date,year=2004,month=9,mday=1)
+
+update (date,year=2004, minut=10,seconds=20)
+
+
+
+
+
+
+
+
