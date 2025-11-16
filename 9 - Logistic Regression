@@ -1,0 +1,33 @@
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.linear_model import LogisticRegression
+# Sample data: Hours studied and pass/fail (1 = pass, 0 = fail)
+hours_studied = np.array ([ [1], [2], [3], [4], [5], [6], [7], [8], [9], [10]])
+passed = np.array([0, 0, 0, 0, 1, 0, 1, 1, 1, 1])
+# Some fail/pass labels
+# Create and train logistic regression model
+model = LogisticRegression()
+model.fit(hours_studied, passed)
+# Take user input
+hours = float(input("Enter number of hours studied: "))
+# Predict probability and class
+prob_pass = model.predict_proba([[hours]])[0][1]
+prediction = model.predict([[hours]])[0]
+print(f"Probability of passing: {prob_pass:.2f}")
+print("Prediction:", "Pass" if prediction == 1 else "Fail")
+# Plot data points
+plt.scatter(hours_studied, passed, color='blue', label='Data (Fail=0, Pass=1)')
+# Plot logistic regression curve
+x_range = np.linspace(0, 12, 300).reshape(-1, 1)
+probabilities = model.predict_proba(x_range) [:, 1]
+plt.plot(x_range, probabilities, color='red', label='Logistic Regression Curve')
+# Highlight prediction
+plt.scatter([hours], [prob_pass], color='green', s=100, label='Your Input')
+plt.xlabel('Hours Studied')
+plt.ylabel('Probability of Passing')
+plt.title('Logistic Regression: Pass/Fail Prediction')
+
+plt.title('Logistic Regression: Pass/Fail Prediction')
+plt.legend()
+plt.ylim(-0.1, 1.1)
+plt.show()
