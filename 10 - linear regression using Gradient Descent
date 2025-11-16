@@ -1,0 +1,55 @@
+import numpy as np
+import matplotlib.pyplot as plt
+# Sample data: Height (in inches) and Weight (in pounds)
+X = np.array([58, 60, 62, 64, 66, 68, 70, 72, 74, 76], dtype=float)
+y = np.array([115, 117, 120, 123, 126, 129, 132, 135, 139, 142], dtype=float)
+# Normalize features for better gradient descent performance
+X_norm = (X - X.mean()) / X.std()
+# Initialize parameters
+m = 0.0 # slope
+b = 0.0 # intercept
+learning_rate = 0.01
+epochs = 1000
+n = float(len(X_norm))
+# Gradient descent function
+for _ in range(epochs):
+  y_pred = m * X_norm + b
+  error = y_pred - y
+  # Calculate gradients
+  m_gradient = (2/n) * np.dot(error, X_norm)
+  b_gradient = (2/n) * np.sum(error)
+  # Update parameters
+m -= learning_rate * m_gradient
+b -= learning_rate * b_gradient
+
+print(f"Model trained: y = {m:.3f} * x + {b:.3f} (using normalized height)")
+
+# Take user input and normalize it
+height_input = float(input("Enter height in inches: "))
+
+# Correct normalization:
+height_input_norm = (height_input - X.mean()) / X.std()
+
+# Predict weight
+predicted_weight = m * height_input_norm + b
+print(f"Predicted weight for height ({height_input}) inches is {predicted_weight:.2f} pounds.")
+
+# Plotting
+plt.scatter(X, y, color='blue', label='Data points')
+
+# Regression line (use denormalized X)
+X_line = np.linspace(X.min(), X.max(), 100)
+X_line_norm = (X_line - X.mean()) / X.std()   # FIXED normalization
+
+y_line = m * X_line_norm + b
+plt.plot(X_line, y_line, color='red', label='Regression line')
+
+# Predicted point
+plt.scatter(height_input, predicted_weight, color='green', s=100, label='Prediction')
+
+plt.xlabel('Height (inches)')
+plt.ylabel('Weight (pounds)')
+plt.title('Weight Prediction based on Height (Gradient Descent)')
+plt.legend()
+plt.show()
+
