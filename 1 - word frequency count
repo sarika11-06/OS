@@ -1,0 +1,22 @@
+# Sample corpus
+corpus = """Data science is the future.
+            Machine learning and data analysis are key parts of data science.
+            Python is a popular language for machine learning.
+          """
+
+# Step 1: Preprocess text (lowercase + remove punctuation)
+import re
+text = corpus.lower()
+text = re.sub(r' [^a-z\s]', '', text) # keep only letters and spaces
+
+# Step 2: Tokenize (split into words)
+words = text.split()
+
+# Step 3: Count frequencies
+from collections import Counter
+word_freq = Counter (words)
+
+# Step 4: Print results
+print("Word Frequency Count:")
+for word, freq in word_freq.items():
+  print(f"{word}: {freq}")
