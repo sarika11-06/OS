@@ -1,0 +1,72 @@
+import nltk
+nltk.download('wordnet')
+
+from nltk.corpus import wordnet
+syns = wordnet.synsets('bank')
+print(syns)
+
+from nltk.corpus import wordnet
+synonyms = []
+antonyms = []
+for syn in wordnet.synsets('inside'):
+  for l in syn.lemmas():
+      synonyms.append(l.name())
+      if l.antonyms():
+        antonyms.append(l.antonyms()[0].name())
+print(set(synonyms))
+print(set(antonyms))
+
+for syn in wordnet.synsets("cat"):
+  print(syn.hypernym_distances())
+
+for syn in wordnet.synsets("kitchen"): print(syn.part_holonyms())
+
+for syn in wordnet.synsets("chair"): print(syn.part_meronyms())
+
+
+
+from nltk.corpus import wordnet
+
+def get_word_relations(word):
+    synsets = wordnet.synsets(word)
+
+    if not synsets:
+        print(f"No synsets found for the word '{word}'")
+        return
+
+    for synset in synsets:
+        print(f"\nSynset: {synset.name()}")
+        print(f"Definition: {synset.definition()}")
+
+        # Hypernyms
+        print("Hypernyms:", [h.name() for h in synset.hypernyms()])
+
+        # Hyponyms
+        print("Hyponyms:", [h.name() for h in synset.hyponyms()])
+
+        # Meronyms
+        print("\nMeronyms:")
+        for part in synset.part_meronyms():
+            print("  Part:", part.name())
+
+        for substance in synset.substance_meronyms():
+            print("  Substance:", substance.name())
+
+        for member in synset.member_meronyms():
+            print("  Member:", member.name())
+
+        # Holonyms
+        print("\nHolonyms:")
+        for part in synset.part_holonyms():
+            print("  Part:", part.name())
+
+        for substance in synset.substance_holonyms():
+            print("  Substance:", substance.name())
+
+        for member in synset.member_holonyms():
+            print("  Member:", member.name())
+
+
+# Example usage
+word_to_check = "human"
+get_word_relations(word_to_check)
