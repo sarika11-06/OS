@@ -1,0 +1,60 @@
+from collections import defaultdict
+import math
+
+# Step 1: Preprocess corpus and generate n-grams
+def generate_ngrams(tokens, n):
+    return [tuple(tokens[i:i+n]) for i in range(len(tokens) - n + 1)]
+
+def count_ngrams(tokens, n):
+    freq = defaultdict(int)
+    for gram in generate_ngrams(tokens, n):
+        freq[gram] += 1
+    return freq
+
+# Function to calculate n-gram probability with Laplace smoothing
+def calculate_ngram_probability(sentence, corpus, n):
+    sentence_tokens = sentence.lower().split()
+    corpus_tokens = corpus.lower().split()
+
+    vocab = set(corpus_tokens)
+    vocab_size = len(vocab)
+
+    # Frequency tables
+    ngram_counts = count_ngrams(corpus_tokens, n)
+    n_minus1_counts = count_ngrams(corpus_tokens, n-1) if n > 1 else None
+
+    # Sentence n-grams
+    sentence_ngrams = generate_ngrams(sentence_tokens, n)
+
+    prob_log_sum = 0
+
+    for gram in sentence_ngrams:
+        count_ngram = ngram_counts[gram]
+
+        if n == 1:
+            # Unigram case
+            total_unigrams = sum(ngram_counts.values())
+            prob = (count_ngram + 1) / (total_unigrams + vocab_size)
+
+        else:
+            # Bigram / Trigram etc.
+            prefix = gram[:-1]
+            count_prefix = n_minus1_counts[prefix]
+            prob = (count_ngram + 1) / (count_prefix + vocab_size)
+
+        prob_log_sum += math.log(prob)
+
+    # Convert log probability back to normal probability
+    return math.exp(prob_log_sum)
+
+
+# MAIN EXECUTION
+if __name__ == "__main__":
+    print("=== N-gram Sentence Probability Calculator ===")
+    user_corpus = input("Enter the corpus text: ")
+    user_sentence = input("Enter a sentence to evaluate: ")
+    n = int(input("Enter n for n-gram (e.g., 1 = unigram, 2 = bigram, 3 = trigram): "))
+
+    probability = calculate_ngram_probability(user_sentence, user_corpus, n)
+
+    print(f"\nCalculated {n}-gram probability of:\n   \"{user_sentence}\"\n➡ Probability: {probability}\n")
