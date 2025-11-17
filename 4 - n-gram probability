@@ -51,9 +51,9 @@ def calculate_ngram_probability(sentence, corpus, n):
 # MAIN EXECUTION
 if __name__ == "__main__":
     print("=== N-gram Sentence Probability Calculator ===")
-    user_corpus = input("Enter the corpus text: ")
-    user_sentence = input("Enter a sentence to evaluate: ")
-    n = int(input("Enter n for n-gram (e.g., 1 = unigram, 2 = bigram, 3 = trigram): "))
+    user_corpus = input("Enter the corpus text: ") # I love travelling and I want to go to this year's IV.
+    user_sentence = input("Enter a sentence to evaluate: ") # I will go to the IV if they go to kerals this time.
+    n = int(input("Enter n for n-gram (e.g., 1 = unigram, 2 = bigram, 3 = trigram): ")) # 2
 
     probability = calculate_ngram_probability(user_sentence, user_corpus, n)
 
