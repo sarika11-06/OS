@@ -1,0 +1,68 @@
+import re #regular expression
+
+sample_text = """Natural Language Processing (NLP) is a fascinating field of Artificial Intelligence.
+It allows computers to understand, interpret, and generate human language.
+From chatbots like Siri and Alexa, to translation services like Google Translate-NLP is everywhere!
+Can machines truly understand us? That's a question researchers are still working on.
+Every time we send a message, write an email, or post on social media, NLP is at play.
+It helps filter spam, detect hate speech, and even predict the next word we're going to type.
+In customer service, NLP powers automated replies, ticket sorting, and sentiment analysis.
+Doctors use NLP to analyze patient records; lawyers use it to scan thousands of documents.
+But NLP isn't perfect. Sarcasm, cultural nuances, and mixed languages pose a challenge.
+How can a machine understand tone? Or humor? What about local expressions and dialects?"""
+
+#1] Sentence Tokenization
+sentences = re.split(r'(?<=[.!?])+',sample_text)
+print("Sentence Tokenization: \n", sentences)
+print("\n number of sentences: ",len(sentences))
+
+#2] WORD TOKENIZATION
+words = re.findall(r'\b\w+\b',sample_text)
+print("\n Word Tokenization: \n", words)
+print("\n number of words: ",len(words))
+
+# 3] LINE TOKENIZATION
+lines = sample_text.split('\n')
+print("\n Line Tokenization: \n", lines)
+print("\n number of lines: ",len(lines))
+
+#4] PUNCTUATION TOKENIZATION
+punctuations = re.findall(r' [^\w\s]', sample_text)
+print("\n Punctuation Tokenization: \n", punctuations)
+print("\n number of punctuation marks: ",len(punctuations))
+
+#5] SPACE TOKENIZATION
+space_tokens = sample_text.split(' ')
+print("\n Space Tokenization: \n", space_tokens)
+print("\n number of space tokens: ",len(space_tokens))
+
+
+
+#TTR
+import re
+# Sample corpus (can be replaced with any text)
+text = """
+"Python is a popular programming language for data science and machine learning.",
+"The football match last night was intense and full of surprises.",
+"Artificial intelligence is transforming industries across the world.",
+"I love watching movies on weekends with my family.",
+"Regular exercise and a balanced diet are essential for good health.",
+"The new smartphone model has amazing features and great performance.",
+"Cricket is considered a religion in many countries.",
+"Space exploration helps us understand the universe better.",
+"Music has the power to heal and connect people emotionally.",
+"E-commerce has changed the way people shop for products."
+"""
+# Step 1: Preprocess text (Lowercase, remove punctuation)
+text = text.lower()
+text = re.sub(r'[^a-z\s]', '', text)
+# Step 2: Tokenize (split into words)
+tokens = text.split()
+
+# Step 3: Find unique words (types)
+types = set(tokens)
+# Step 4: Calculate TTR
+ttr = len(types) / len(tokens)
+print("Total tokens:", len(tokens))
+print("Unique types:", len(types))
+print("Type-Token Ratio (TTR): ", round(ttr, 3))
