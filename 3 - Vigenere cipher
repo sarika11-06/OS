@@ -1,0 +1,12 @@
+S = AlphabeticStrings()
+E = VigenereCryptosystem (S,14)
+K = S('ABCDEFGHLIKLMN')
+print("\n Key=", K)
+e = E(K)
+M=S("THECATINTHEHAT")
+print ("\n Plain text=", M)
+C=e(S(M))
+print("\n Encryption=", C)
+D=E. deciphering (K, E. enciphering (K, M))
+print("\n Decryption=",D)
+D==M
