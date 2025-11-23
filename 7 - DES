@@ -1,0 +1,12 @@
+from sage.crypto.block_cipher.sdes import SimplifiedDES
+sdes = SimplifiedDES (); sdes
+bin = BinaryStrings ()
+P=[bin(str (randint(0, 1))) for i in range (8)]
+print("\n Plain text=",P)
+K = sdes.random_key()
+print("\n key=",K)
+C = sdes.encrypt (P, K)
+print("\n Cipher text ",C)
+plaintxt = sdes.decrypt (C, K)
+print("\n Decrypted text", plaintxt)
+plaintxt == P
