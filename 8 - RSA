@@ -1,0 +1,52 @@
+# Define primes
+p = (2^31) - 1
+p
+
+q = (2^61) - 1
+q
+
+# Compute modulus
+n = p * q
+n
+
+# Compute Euler Totient
+phi = euler_phi(n)
+phi
+
+# Choose public key 'e'
+e = randint(2, phi - 1)
+while gcd(e, phi) > 1:
+    e = randint(2, phi - 1)
+
+print("Public key e =", e, "with gcd(e, phi) =", gcd(e, phi))
+
+# Compute private key using Extended Euclidean Algorithm
+bezout = xgcd(e, phi)
+bezout
+
+d = Integer(mod(bezout[1], phi))
+print("Private key d =", d)
+
+# Message
+m = "HELLOWORLD"
+print("Plain text =", m)
+
+# Convert message to integer form
+m_list = [ord(x) for x in m]
+m_list
+
+m_val = ZZ(list(reversed(m_list)), 100)
+m_val
+
+# Encryption
+c = power_mod(m_val, e, n)
+c
+print("Cipher text =", c)
+
+# Decryption
+D = power_mod(c, d, n)
+D
+print("Decrypted text =", D)
+
+# Check correctness
+m_val == D
