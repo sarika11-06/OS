@@ -1,0 +1,7 @@
+A = AffineCryptosystem(AlphabeticStrings()); A
+P = A.encoding("The affine cryptosystem generalizes the shift cipher.\n")
+a, b = (9, 13)
+C = A.enciphering(a, b, P); C
+print("Cipher Text", C)
+D = A. deciphering (a,b,C)
+D == P
