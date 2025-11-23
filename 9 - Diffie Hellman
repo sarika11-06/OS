@@ -1,0 +1,26 @@
+p = 97
+g = 7
+
+x = 3   # randint(1, p)
+print("value of x =", x)
+
+R = g^x
+R1 = (R % p)
+print("value of R =", R)
+print("value of R1 =", R1)
+
+y = 6   # randint(1, p)
+print("value of y =", y)
+
+R2 = g^y
+R21 = (R2 % p)
+print("value of R2 =", R2)
+print("value of R21 =", R21)
+
+K1 = R2^x
+K11 = (K1 % p)
+print("value of K11 =", K11)
+
+K2 = R1^y
+K22 = (K2 % p)
+print("value of K22 =", K22)
