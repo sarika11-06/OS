@@ -1,0 +1,9 @@
+S=ShiftCryptosystem (AlphabeticStrings());5
+P=S.encoding("SageMath tutorial is used for Cryptography")
+K=3;K
+C=S.enciphering (K,P); C
+D=S.deciphering (K,C); D
+print(" Original Plaintext:\n", P)
+print("\n Encrypted Ciphertext:\n", C)
+print("\n Decrypted Text: \n", D)
+print("\nDecryption matches original? ->", D == P)
