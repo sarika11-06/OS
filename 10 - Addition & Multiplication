@@ -1,0 +1,25 @@
+# Rutvija Ubale
+from sage.all import *
+import operator
+
+G = GF(13)
+
+# Addition Table for GF(13)
+add_table = matrix([[ (a + b) for b in G ] for a in G ])
+print("Addition Table for GF(13):")
+print(add_table)
+
+# Multiplication Table for GF(13)
+mul_table = matrix([[ (a * b) for b in G ] for a in G ])
+print("\nMultiplication Table for GF(13):")
+print(mul_table)
+
+# Example operations
+x = G(2 + 3)
+y = G(2 - 3)
+z = G(2 * 3)
+
+print("\nExample operations in GF(13):")
+print(f"x = 2 + 3 mod 13 = {x}")
+print(f"y = 2 - 3 mod 13 = {y}")
+print(f"z = 2 * 3 mod 13 = {z}")
