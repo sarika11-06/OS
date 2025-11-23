@@ -1,0 +1,12 @@
+S = AlphabeticStrings ()
+E = TranspositionCryptosystem (S,14)
+K = [ 14-i for i in range(14) ]
+print("The key is: " , (K))
+e = E(K)
+M = S("THECATINTHEHAT")
+print("The plain text is: ",M)
+C =e (M)
+print("The Cipher text is:",C)
+D = e(C)
+print("The Decipher text is:",D)
+D==M
